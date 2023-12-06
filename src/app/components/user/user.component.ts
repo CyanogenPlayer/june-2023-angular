@@ -14,9 +14,9 @@ export class UserComponent {
   user: IUser
 
   @Output()
-  lift = new EventEmitter<IUser>()
+  lift = new EventEmitter<number>()
 
-  getDetails(): void {
-    this.lift.emit(this.user)
+  getPostsOfUser(): void {
+    this.lift.emit(this.user.id)
   }
 }

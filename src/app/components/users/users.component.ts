@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 
 import {UserService} from "../../services";
-import {IUser} from "../../interfaces";
+import {IPost, IUser} from "../../interfaces";
 import {UserComponent} from "../user/user.component";
-import {UserDetailsComponent} from "../user-details/user-details.component";
+import {UserPostsComponent} from "../user-posts/user-posts.component";
 
 @Component({
   selector: 'app-users',
@@ -12,15 +12,15 @@ import {UserDetailsComponent} from "../user-details/user-details.component";
   imports: [
     UserComponent,
     NgForOf,
-    UserDetailsComponent,
-    NgIf
+    NgIf,
+    UserPostsComponent
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit{
   users: IUser[]
-  userDetails: IUser
+  postsOfCurrentUser: IPost[]
 
   constructor(private userService :UserService) {
   }
@@ -29,7 +29,7 @@ export class UsersComponent implements OnInit{
     this.userService.getAll().subscribe(value => this.users = value)
   }
 
-  getUser(userDetails: IUser) {
-    this.userDetails = userDetails
+  getPostsOfUser(id: number) {
+    this.userService.getPostsOfUser(id).subscribe(value => this.postsOfCurrentUser = value)
   }
 }
